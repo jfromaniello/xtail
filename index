@@ -1,6 +1,11 @@
 #!/usr/bin/env node
 require('colors');
 
+if (process.argv.length < 3) {
+  console.error('missing service name');
+  process.exit(2);
+}
+
 var log_file = process.argv.length === 3 ?
                   '/var/log/' + process.argv[2] + '.log' :
                   process.argv[2];
