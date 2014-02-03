@@ -1,0 +1,71 @@
+#!/usr/bin/env node
+require('colors');
+
+var log_file = process.argv.length === 3 ?
+                  '/var/log/' + process.argv[2] + '.log' :
+                  process.argv[2];
+
+var service_name = process.argv.length === 3 ?
+                      process.argv[2] :
+                      process.argv[3];
+
+
+var keypress = require('keypress');
+
+function show_help () {
+  console.log('Use:');
+  console.log('-' + 'ctrl+x'.bold.green + ': to stop the service');
+  console.log('-' + 'ctrl+s'.bold.green + ': to start the service');
+  console.log('-' + 'ctrl+r'.bold.green + ': to restart');
+  console.log('-' + 'ctrl+c'.bold.green + ': to exit');
+  console.log('-' + '?'.bold.green + ': for this menu');
+}
+
+var exec = require('child_process').exec;
+var service = require('./service');
+
+// make `process.stdin` begin emitting "keypress" events
+keypress(process.stdin);
+
+process.stdin.on('keypress', function (ch, key) {
+  if (ch === '?') {
+    return show_help();
+  }
+
+  if (!key || !key.ctrl) return;
+
+  switch (key.name) {
+    case 'r':
+      service.restart(service_name);
+      break;
+    case 's':
+      service.start(service_name);
+      break;
+    case 'x':
+      service.stop(service_name);
+      break;
+    case 'c':
+    case 'd':
+      process.exit(0);
+      break;
+    default:
+      console.log('Unknown key combination: ctrl+' + key.name);
+      show_help();
+      break;
+  }
+});
+
+process.stdin.setRawMode(true);
+process.stdin.resume();
+
+//tail
+var proc = exec('tail -f ' + log_file, function (err) {
+  if (err) {
+    console.error(err.message);
+    return process.exit(1);
+  }
+  process.exit(0);
+});
+
+proc.stdout.pipe(process.stdout);
+proc.stderr.pipe(process.stderr);

@@ -1,0 +1,17 @@
+{
+  "name": "xtail",
+  "version": "0.0.1",
+  "description": "",
+  "bin": "./index",
+  "repository": "",
+  "author": "José F. Romaniello <jfromaniello@gmail.com> (http://joseoncode.com)",
+  "license": "MIT",
+  "dependencies": {
+    "keypress": "~0.2.1",
+    "colors": "*"
+  },
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/jfromaniello/xtail.git"
+  }
+}
