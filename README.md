@@ -3,7 +3,7 @@ Restart, stop or start service while watching a log file (ie `tail -f`).
 ## Installation
 
 ```
-$ npm i xtail
+$ npm i xtail -g
 ```
 
 ## Usage
