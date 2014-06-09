@@ -10,7 +10,8 @@
   "author": "José F. Romaniello <jfromaniello@gmail.com> (http://joseoncode.com)",
   "license": "MIT",
   "dependencies": {
+    "colors": "*",
     "keypress": "~0.2.1",
-    "colors": "*"
+    "stdio": "^0.1.6"
   }
 }
