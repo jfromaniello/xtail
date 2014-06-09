@@ -1,18 +1,23 @@
 #!/usr/bin/env node
 require('colors');
+var stdio = require('stdio');
 
-if (process.argv.length < 3) {
+var options = stdio.getopt({
+    'number': {description: 'Line numbers to get', key: 'n', args: 1}
+});
+
+if (!options.args || options.args.length < 1) {
   console.error('missing service name');
   process.exit(2);
 }
 
-var log_file = process.argv.length === 3 ?
-                  '/var/log/' + process.argv[2] + '.log' :
-                  process.argv[2];
+var log_file = options.args.length === 1 ?
+                  '/var/log/' + options.args[0] + '.log' :
+                  options.args[0];
 
-var service_name = process.argv.length === 3 ?
-                      process.argv[2] :
-                      process.argv[3];
+var service_name = options.args.length === 2 ?
+                      options.args[0] :
+                      options.args[1];
 
 
 var keypress = require('keypress');
@@ -64,7 +69,7 @@ process.stdin.setRawMode(true);
 process.stdin.resume();
 
 //tail
-var proc = exec('tail -f ' + log_file, function (err) {
+var proc = exec('tail -f -n ' + (options.number || 10) + ' ' + log_file, function (err) {
   if (err) {
     console.error(err.message);
     return process.exit(1);
