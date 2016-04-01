@@ -36,6 +36,10 @@ process.stdin.on('keypress', function (ch, key) {
   if (ch === '?') {
     return show_help();
   }
+  
+  if (key.name === 'return') {
+    console.log('');
+  }
 
   if (!key || !key.ctrl) return;
 
