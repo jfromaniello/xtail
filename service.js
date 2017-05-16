@@ -13,5 +13,5 @@ function base (method) {
 }
 
 exports.reload = base('reload');
-exports.stop = base('stop');
-exports.start = base('start');
+exports.stop   = base('stop');
+exports.start  = base('start');

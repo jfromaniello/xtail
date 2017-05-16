@@ -45,12 +45,15 @@ process.stdin.on('keypress', function (ch, key) {
 
   switch (key.name) {
     case 'r':
+      console.log('reloading service...');
       service.reload(service_name);
       break;
     case 's':
+      console.log('starting service...');
       service.start(service_name);
       break;
     case 'x':
+      console.log('stopping service...');
       service.stop(service_name);
       break;
     case 'c':
