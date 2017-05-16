@@ -21,7 +21,7 @@ function show_help () {
   console.log('Use:');
   console.log('-' + 'ctrl+x'.bold.green + ': to stop the service');
   console.log('-' + 'ctrl+s'.bold.green + ': to start the service');
-  console.log('-' + 'ctrl+r'.bold.green + ': to restart');
+  console.log('-' + 'ctrl+r'.bold.green + ': to reload');
   console.log('-' + 'ctrl+c'.bold.green + ': to exit');
   console.log('-' + '?'.bold.green + ': for this menu');
 }
@@ -36,7 +36,7 @@ process.stdin.on('keypress', function (ch, key) {
   if (ch === '?') {
     return show_help();
   }
-  
+
   if (key.name === 'return') {
     console.log('');
   }
@@ -45,7 +45,7 @@ process.stdin.on('keypress', function (ch, key) {
 
   switch (key.name) {
     case 'r':
-      service.restart(service_name);
+      service.reload(service_name);
       break;
     case 's':
       service.start(service_name);

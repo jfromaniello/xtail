@@ -4,9 +4,7 @@ function base (method) {
   return function (service, callback) {
     callback = callback || function(err){
       if (err) return;
-      console.log('---------------------' + (method + 'ed').blue.green + '---------------------');
     };
-    console.log('---------------------' + (method + 'ing').bold.green + '---------------------');
     var cmd = ['service', service, method].join(' ');
     var proc = exec(cmd, callback);
     proc.stdout.pipe(process.stdout);
@@ -14,6 +12,6 @@ function base (method) {
   };
 }
 
-exports.restart = base('restart');
+exports.reload = base('reload');
 exports.stop = base('stop');
 exports.start = base('start');
